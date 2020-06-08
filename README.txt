@@ -16,6 +16,11 @@
         Add value: ['+ R$ 20' or '- R$ 10']
         Product code: ['001' or '002']
 
+    Option_3:
+        > '+ R$ 200 001'
+
+    -> Going with Option_3 as default, but also with Option_2 if the user prefer's it
+
 
 # - First step:
 
@@ -38,3 +43,27 @@
         -> 4. Make an easy to read method, that returns how much you earned with each item:
             -> You sold 40 pieces of shit, and earned R$ 190 of profit
             -> You sold 2 smartwatches, and earned R$ 200 of profit
+
+# - Databases:
+
+    1. The first database will be called '':
+        # - It will hold all the values, such as '+ R$ 200 001', '- R$ 10 004'
+        # - NOTE: it will automatically add the date, so actually it will be something like '- R$ 20 001 26/02/2020'
+
+        # - User typed: '- R$ 20 001'
+        # - Saved in the database: '- R$ 20 001 26/02/2020'
+
+        # - It will have an option to sort through date, item value ( 001, 002, ... ), and profit/debt
+
+    2. The second database will be called '':
+        # - It will hold the number of sells each item has, such as '001 being the piece of shirt', it will have a 'prefixed value', such as :
+
+            # - '001: 25'
+            # - '002: 31'
+            # - '003: 102'
+            # - '004: 26'
+
+        # - Every time the user adds something to the main database, the second one get's it's number increased
+            -> User type '+ R$ 200 001'
+            -> Previous value of 001: '25', new value of 001: '26'
+

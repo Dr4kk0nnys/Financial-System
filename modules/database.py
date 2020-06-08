@@ -101,55 +101,6 @@ class Database():
                    '\n' + str(lines[1]).strip('\n'))
 
         return lines[index]
-
-    # return the client id automatically
-    def get_client_info(self):
-
-        name = input('Name: ')
-        cpf = input('CPF: ')
-        phone_number = input('Phone number: ')
-        adress = input('Adress: ')
-
-        return {
-            'name': name,
-            'cpf': self.beautify_cpf(cpf),
-            'phone_number': phone_number,
-            'adress': adress,
-            'client_id': self.get_serial()
-        }
-
-    def get_order_info(self):
-
-        client_id = input('Client id: ')
-        specifications = input('Specifications: ')
-        problem = input('Problem: ')
-
-        return {
-            'client_id': client_id,
-            'specifications': specifications,
-            'problem': problem,
-            'order_id': self.get_serial()
-        }
-
-    def beautify_cpf(self, cpf='000.000.000-00'):
-
-        # format received = 00000000000
-        # format returned = 000.000.000-00
-
-        # checking if it's already formated
-        if (cpf.count('.') == 2 and cpf.count('-') == 1):
-            return cpf
-
-        # wrong cpf format
-        if (len(cpf) != 11):
-            return print('Wrong cpf! [204]')
-
-        formated_cpf = cpf
-        for i in range(3, len(formated_cpf), 4):
-            formated_cpf = formated_cpf[:i] + '.' + formated_cpf[i:]
-
-        return formated_cpf[:11] + '-' + formated_cpf[11:]
-
     def check_index(self, index):
         if (index == ''):
             return False
@@ -177,5 +128,3 @@ if __name__ == '__main__':
     # database.update(0, 'This is the new index 0')
 
     # print(database.get_serial())
-
-    print(database.beautify_cpf('00000000000'))

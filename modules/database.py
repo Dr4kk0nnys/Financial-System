@@ -20,21 +20,31 @@ class Database():
         lines = file.readlines()
 
         for i in range(len(lines)):
-            print(f'Index {i}: {lines[i]}', end='')
+            date = lines[i].split(' ')[-1].strip()
+            value = ' '.join(lines[i].split(' ')[:-1])
+
+            if (value[0] == '-'):
+                print(f'{date}: \033[1;31;48m{value}\033[0m')
+                continue
+
+            print(f'{date}: \033[92m{value}\033[0m')
 
     # return the query with all the matches inside the database
     def read_(self, value):
-        '''
-            TODO: Improve this part of the code, making it more abrassive
-            ( search for lower letters, cpf without the dots, etc ...)
-        '''
-
         file = open(self.database_name, 'r')
         lines = file.readlines()
 
         for i in range(len(lines)):
             if (value in lines[i]):
-                print(f'Index {i}: {lines[i]}', end='')
+
+                date = lines[i].split(' ')[-1].strip()
+                value_ = ' '.join(lines[i].split(' ')[:-1])
+
+                if (value_[0] == '-'):
+                    print(f'{date}: \033[1;31;48m{value_}\033[0m')
+                    continue
+
+                print(f'{date}: \033[92m{value_}\033[0m')
 
     # removes the value inside the index
     def delete(self, index):
@@ -101,6 +111,7 @@ class Database():
                    '\n' + str(lines[1]).strip('\n'))
 
         return lines[index]
+
     def check_index(self, index):
         if (index == ''):
             return False
@@ -110,6 +121,40 @@ class Database():
             return False
 
         return index
+
+    def get_month_balance(self, month=1):
+
+        # checking if the month exist
+        if (month >= 1 and month <= 12):
+            with open('profit_and_debt.txt', 'r') as file:
+                lines = file.readlines()
+
+                values = []
+                for line in lines:
+                    # db_month will always be the second index ([1])
+                    db_month = int(line.split('/')[1])
+
+                    if (db_month == month):
+
+                        # value will always be the third index ([2])
+                        # and the first index is the '+' or '-' ( negative or positive )
+                        value = line.split(' ')[0] + line.split(' ')[2]
+                        values.append(float(value))
+
+                total = self.get_total_income(values)
+                print(f'R$ {total}')
+
+                return
+
+        raise 'Invalid Month'
+
+    def get_total_income(self, values=[]):
+
+        total = 0
+        for value in values:
+            total += value
+
+        return total
 
 
 if __name__ == '__main__':

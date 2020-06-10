@@ -1,5 +1,6 @@
 from modules.database import Database
 from modules.utils import *
+# TODO: Make it error and idiot proof
 
 
 class System():
@@ -19,18 +20,31 @@ class System():
 
     def handle_input(self, user_input):
 
-        print(user_input)
+        user_input = user_input.split(' ')
 
-        # is profit returns True only if the first caracter is a '+'
-        # if isProfit(user_input[0]):
-        #     print('Fuck this shit is profit')
-        # else:
-        #     print('Fuck this shit is not profit')
+        # read only print's the entire database if no parameter is passed
+        if (user_input[0] == 'read' and len(user_input) == 1):
+            return self.main_database.read()
+        elif (user_input[0] == 'read'):
+            return self.main_database.read_(user_input[1])
 
+        # TODO: Check for the month balance, month total income, month total debt, etc .. ( different if's )
+        if (user_input[0] == 'month' and user_input[1] == 'balance' and len(user_input) == 3):
+
+            return self.main_database.get_month_balance(int(user_input[2]))
+
+        # TODO: Check for Option 2 ( readme.txt )
         # TODO: Add an inspection first, to see if the user_input is right
-        # TODO: Make a module that automatically get's the date, and already format's it
-        # TODO: Print the debt in red on the terminal ( use color code )
-        self.main_database.write(user_input)
+
+        if (len(user_input) == 4):
+            profit_or_debt = user_input[0]
+            value = ' '.join(user_input[1:3])
+            product_code = user_input[-1]
+
+            if (profit_or_debt == '+' or profit_or_debt == '-'):
+                if ('R$' in value):
+                    query = f'{profit_or_debt} {value} {product_code} {get_formated_date()}'
+                    self.main_database.write(query)
 
 
 if __name__ == '__main__':

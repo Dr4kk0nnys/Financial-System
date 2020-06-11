@@ -1,6 +1,7 @@
 from modules.database import Database
 from modules.utils import *
 # TODO: Make it error and idiot proof
+# TODO: Format this code, and refactor it 1000 times
 
 
 class System():

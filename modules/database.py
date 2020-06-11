@@ -141,11 +141,15 @@ class Database():
                         value = line.split(' ')[0] + line.split(' ')[2]
                         values.append(float(value))
 
+                self.read_(f'/{str(month)}/')
+
                 total = self.get_total_income(values)
-                print(f'R$ {total}')
+                painted_total = self.get_painted_value(total)
+                print(f'Month total balance: R$ {painted_total}')
 
                 return
 
+        # TODO: Instead of raising an exception, think of another method to show case the error
         raise 'Invalid Month'
 
     def get_total_income(self, values=[]):
@@ -155,6 +159,16 @@ class Database():
             total += value
 
         return total
+
+    # return the value, painted ( green if positive, red if negative )
+    def get_painted_value(self, value=0.0):
+
+        # green
+        if (value >= 0):
+            return f'\033[92m{value}\033[0m'
+        else:
+            # red
+            return f'\033[1;31;48m{value}\033[0m'
 
 
 if __name__ == '__main__':

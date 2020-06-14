@@ -29,7 +29,7 @@
     C - It will store the date when you saved the information: ( '+ R$ 20  26/01/2020' -> Rough concept )
     D - It will have methods that show the balance so far, the month's balance, etc ...
     E - It must show how the financial performance is
-    F - Search for financial values, financial terms and how to proporly show them
+    F - Search for financial values, financial terms and how to properly show them
     G - Show percentages
     H - Work on methods to help you with sales
 
@@ -46,7 +46,7 @@
 
 # - Databases:
 
-    1. The first database will be called '':
+    1. The first database will be called 'profit_and_debt':
         # - It will hold all the values, such as '+ R$ 200 001', '- R$ 10 004'
         # - NOTE: it will automatically add the date, so actually it will be something like '- R$ 20 001 26/02/2020'
 
@@ -55,7 +55,7 @@
 
         # - It will have an option to sort through date, item value ( 001, 002, ... ), and profit/debt
 
-    2. The second database will be called '':
+    2. The second database will be called 'product_sales_info':
         # - It will hold the number of sells each item has, such as '001 being the piece of shirt', it will have a 'prefixed value', such as :
 
             # - '001: 25'

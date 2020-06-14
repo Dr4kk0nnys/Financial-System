@@ -138,8 +138,8 @@ class Database():
 
                         # value will always be the third index ([2])
                         # and the first index is the '+' or '-' ( negative or positive )
-                        value = line.split(' ')[0] + line.split(' ')[2]
-                        values.append(float(value))
+                        value = float(line.split(' ')[0] + line.split(' ')[2])
+                        values.append(value)
 
                 self.read_(f'/{str(month)}/')
 

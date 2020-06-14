@@ -3,6 +3,7 @@ from modules.utils import *
 # TODO: Make it error and idiot proof
 # TODO: Format this code, and refactor it 1000 times
 # TODO: After done formatting this shithole, add a bunch of comments
+# TODO: Add a command printer for help
 
 
 class System():
@@ -43,7 +44,26 @@ class System():
         # TODO: Error proof: cannot type empty value ( it shouldn't ) ' [space] '
         if (user_input[0] == 'month' and user_input[1] == 'balance' and len(user_input) == 3):
 
-            return self.main_database.get_month_balance(int(user_input[2]))
+            # printing the entire month
+            self.main_database.read_(f'/{user_input[2]}/')
+
+            response = self.main_database.get_month_balance(int(user_input[2]))
+            print(f'Month total balance: R$ {response.get("painted_total")}')
+
+        # TODO: Work on the monthly analysis
+        '''
+        # Show the percentage of each item
+            -> Get the total profit ( 100 )
+            -> Show how much % you've earned per item ( 10 % )
+
+            -> Get the total debt ( 100 )
+            -> Show how much % you've payed per item ( 10 % )
+        '''
+        if (user_input[0] == 'month' and user_input[1] == 'analysis' and len(user_input) == 3):
+            response = self.main_database.get_month_balance(int(user_input[2]))
+
+            for item in response['profits']:
+                print(item.get('value'))
 
         # TODO: Check for Option 2 ( readme.txt )
         # TODO: Add an inspection first, to see if the user_input is right

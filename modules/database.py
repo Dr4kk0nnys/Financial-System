@@ -130,6 +130,8 @@ class Database():
                 lines = file.readlines()
 
                 values = []
+                profits = []
+                debts = []
                 for line in lines:
                     # db_month will always be the second index ([1])
                     db_month = int(line.split('/')[1])
@@ -141,13 +143,25 @@ class Database():
                         value = float(line.split(' ')[0] + line.split(' ')[2])
                         values.append(value)
 
-                self.read_(f'/{str(month)}/')
+                        # item name will always be the forth index ([3])
+                        # item name is '001' or 'Luz'
+                        item_name = line.split(' ')[3]
+                        query = {'name': item_name, 'value': value}
+
+                        if (value >= 0):
+                            profits.append(query)
+                        else:
+                            debts.append(query)
 
                 total = self.get_total_income(values)
                 painted_total = self.get_painted_value(total)
-                print(f'Month total balance: R$ {painted_total}')
 
-                return
+                return {
+                    'total': total,
+                    'painted_total': painted_total,
+                    'profits': profits,
+                    'debts': debts
+                }
 
         # TODO: Instead of raising an exception, think of another method to show case the error
         raise 'Invalid Month'

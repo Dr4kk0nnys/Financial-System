@@ -43,6 +43,12 @@
         -> 4. Make an easy to read method, that returns how much you earned with each item:
             -> You sold 40 pieces of shit, and earned R$ 190 of profit
             -> You sold 2 smartwatches, and earned R$ 200 of profit
+    
+    I - Work on the 'where is my money going' function ( show like: You've spent R$ 100 on 001, R$ 300 on Luz, etc ... )
+        -> Add a method where it also shows the percentage of the total cost
+            - You've spent R$ 100 ( 21% of your total income on Luz )
+            - You've spen R$ 20 ( 11.3 % of your total income on 001 ), 001 could also be translated into the actual product name
+    J - Instead of saving things like '001' or '002' save it with the real name ( Moletom, Smartwatch, Luz, Comida )
 
 # - Databases:
 

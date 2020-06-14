@@ -33,7 +33,14 @@ class System():
         elif (user_input[0] == 'read'):
             return self.main_database.read_(user_input[1])
 
+        # TODO: Return the percentage of the month
+        '''
+            0  ~ 30  %: red
+            31 ~ 50  %: yellow
+            51 ~ 100 %: green
+        '''
         # TODO: Error proof: cannot type float value ( it shouldn't )
+        # TODO: Error proof: cannot type empty value ( it shouldn't ) ' [space] '
         if (user_input[0] == 'month' and user_input[1] == 'balance' and len(user_input) == 3):
 
             return self.main_database.get_month_balance(int(user_input[2]))
@@ -41,9 +48,10 @@ class System():
         # TODO: Check for Option 2 ( readme.txt )
         # TODO: Add an inspection first, to see if the user_input is right
 
+        '''
         # if the user input doesn't has any of the above data
         # it wants to add a key-value to the database
-        # it does some checking before and then add's it to the database
+        # it does some checking before and then add's it to the database '''
         if (len(user_input) == 4):
             profit_or_debt = user_input[0]
             value = ' '.join(user_input[1:3])

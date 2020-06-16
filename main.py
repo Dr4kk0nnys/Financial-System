@@ -116,6 +116,7 @@ class System():
                 text += f'\nTotal: R$ {total_profit}\n'
                 print(text)
 
+            # TODO: Think of a better idea to make this
             get_month_analysis('profits')
             get_month_analysis('debts')
 

@@ -5,6 +5,8 @@ from modules.utils import *
 # TODO: After done formatting this shithole, add a bunch of comments
 # TODO: Add a command printer for help
 
+# TODO: Work on the secondary database features
+
 
 class System():
 

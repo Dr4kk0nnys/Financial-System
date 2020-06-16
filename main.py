@@ -65,8 +65,9 @@ class System():
 
             def get_month_analysis(query_name):
 
-                query = self.main_database.get_month_balance(
-                    int(user_input[2]))
+                # TODO: Validate the user input
+                u = int(user_input[2])
+                query = self.main_database.get_month_balance(u)
                 response_query = query[query_name]
 
                 # profit first

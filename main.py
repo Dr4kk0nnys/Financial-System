@@ -62,13 +62,52 @@ class System():
         if (user_input[0] == 'month' and user_input[1] == 'analysis' and len(user_input) == 3):
             response = self.main_database.get_month_balance(int(user_input[2]))
 
-            for item in response['profits']:
-                print(item.get('value'))
+            # profit first
+            total_profit = 0
+            for profit in response['profits']:
+                total_profit += float(profit.get('value'))
+
+            a = []
+            for i in range(len(response['profits'])):
+
+                r = response['profits'][i]
+
+                total_value = 0
+                for j in range(len(response['profits'])):
+
+                    r2 = response['profits'][j]
+
+                    if (r.get('name') == r2.get('name')):
+                        value_2 = float(r2.get('value'))
+                        total_value += value_2
+
+                final_version = f'{r.get("name")} | {total_value}'
+
+                flag = False
+                for element in a:
+                    if (element.split(' | ')[0] == r.get('name')):
+                        flag = True
+
+                if (flag == False):
+                    a.append(final_version)
+
+            print(a)
+
+            # print(
+            #     f'Name: {r.get("name")}\nOld value: {r.get("value")}')
+            # print(
+            #     f'New value: {float(r.get("value")) + float(r2.get("value"))}')
+
+            print('\n\n\n\n\n\n')
+            for value in response['profits']:
+                item_profit = float(value.get('value'))
+
+                percentage = item_profit / total_profit * 100
+                print(f'{value.get("name")}: {percentage}%')
 
         # TODO: Check for Option 2 ( readme.txt )
         # TODO: Add an inspection first, to see if the user_input is right
 
-        '''
         # if the user input doesn't has any of the above data
         # it wants to add a key-value to the database
         # it does some checking before and then add's it to the database '''

@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-def isProfit(value):
+def is_profit(value):
 
     if value == '+':
         return True

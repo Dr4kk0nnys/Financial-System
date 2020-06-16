@@ -34,7 +34,7 @@ class System():
         elif (user_input[0] == 'read'):
             return self.main_database.read_(user_input[1])
 
-        # TODO: Return the percentage of the month
+        # TODO: Return the "%.2f" % percentage of the month
         '''
             0  ~ 30  %: red
             31 ~ 50  %: yellow
@@ -52,7 +52,7 @@ class System():
 
         # TODO: Work on the monthly analysis
         '''
-        # Show the percentage of each item
+        # Show the "%.2f" % percentage of each item
             -> Get the total profit ( 100 )
             -> Show how much % you've earned per item ( 10 % )
 
@@ -81,29 +81,21 @@ class System():
                         value_2 = float(r2.get('value'))
                         total_value += value_2
 
-                final_version = f'{r.get("name")} | {total_value}'
+                final_version = {'name': r.get('name'), 'value': total_value}
 
                 flag = False
                 for element in a:
-                    if (element.split(' | ')[0] == r.get('name')):
+                    if (element.get('name') == r.get('name')):
                         flag = True
 
                 if (flag == False):
                     a.append(final_version)
 
-            print(a)
-
-            # print(
-            #     f'Name: {r.get("name")}\nOld value: {r.get("value")}')
-            # print(
-            #     f'New value: {float(r.get("value")) + float(r2.get("value"))}')
-
-            print('\n\n\n\n\n\n')
-            for value in response['profits']:
+            for value in a:
                 item_profit = float(value.get('value'))
 
                 percentage = item_profit / total_profit * 100
-                print(f'{value.get("name")}: {percentage}%')
+                print(f'{value.get("name")}: {"%.2f" % percentage}%')
 
         # TODO: Check for Option 2 ( readme.txt )
         # TODO: Add an inspection first, to see if the user_input is right

@@ -60,42 +60,64 @@ class System():
             -> Show how much % you've payed per item ( 10 % )
         '''
         if (user_input[0] == 'month' and user_input[1] == 'analysis' and len(user_input) == 3):
-            response = self.main_database.get_month_balance(int(user_input[2]))
 
-            # profit first
-            total_profit = 0
-            for profit in response['profits']:
-                total_profit += float(profit.get('value'))
+            def get_month_analysis(query_name):
 
-            a = []
-            for i in range(len(response['profits'])):
+                query = self.main_database.get_month_balance(
+                    int(user_input[2]))
+                response_query = query[query_name]
 
-                r = response['profits'][i]
+                # profit first
+                total_profit = 0
+                for profit in response_query:
+                    total_profit += float(profit.get('value'))
 
-                total_value = 0
-                for j in range(len(response['profits'])):
+                sanitized_profits = []
+                for i in range(len(response_query)):
 
-                    r2 = response['profits'][j]
+                    response_name = response_query[i].get('name')
+                    total_value = 0
+                    for j in range(len(response_query)):
 
-                    if (r.get('name') == r2.get('name')):
-                        value_2 = float(r2.get('value'))
-                        total_value += value_2
+                        # secondary response will hold the value to add
+                        secondary_response = response_query[j]
 
-                final_version = {'name': r.get('name'), 'value': total_value}
+                        if (response_name == secondary_response.get('name')):
+                            value = float(secondary_response.get('value'))
+                            total_value += value
 
-                flag = False
-                for element in a:
-                    if (element.get('name') == r.get('name')):
-                        flag = True
+                    '''
+                    # final query will contain the final value to be added
+                    # the have been added flag will hold the information
+                    #   -> of whether or not it has been already added
+                    #   -> if so, it won't add it, since it's value will be True
+                    '''
+                    final_query = {'name': response_name, 'value': total_value}
 
-                if (flag == False):
-                    a.append(final_version)
+                    have_been_added = False
+                    for element in sanitized_profits:
+                        if (element.get('name') == response_name):
+                            have_been_added = True
 
-            for value in a:
-                item_profit = float(value.get('value'))
+                    if (have_been_added == False):
+                        sanitized_profits.append(final_query)
 
-                percentage = item_profit / total_profit * 100
-                print(f'{value.get("name")}: {"%.2f" % percentage}%')
+                # it will print the percentage of each item of the total profit
+                # if the total profit is 100, and a specific item has the value of 10
+                # it will print: 'item_name: 10%'
+                text = ''
+                text += '--- ' + query_name.capitalize() + ':\n'
+                for value in sanitized_profits:
+                    item_profit = float(value.get('value'))
+
+                    percentage = item_profit / total_profit * 100
+                    text += f'{value.get("name")}: R$ {value.get("value")}   ({"%.2f" % percentage}%) \n'
+
+                text += f'\nTotal: R$ {total_profit}\n'
+                print(text)
+
+            get_month_analysis('profits')
+            get_month_analysis('debts')
 
         # TODO: Check for Option 2 ( readme.txt )
         # TODO: Add an inspection first, to see if the user_input is right
